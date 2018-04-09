@@ -18,7 +18,7 @@ default: &default
   host: localhost
 
 development:
-  <<: *default
+  adapter: sqlite3
   database: rubymush
 
 # Warning: The database defined as "test" will be erased and

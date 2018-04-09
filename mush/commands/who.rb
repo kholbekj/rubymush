@@ -18,7 +18,7 @@ class Who < Command
 
 	def process(thing, command)
 		back = "Name\t\tIdle\t\tDoing\n".colorize(:bold)
-		for player in Thing.where('connected is true')
+		for player in Thing.where(connected: true)
 			back << "#{player.name}\t\t#{time_ago_in_words(player.last_interaction_at)}\t\t#{player.doing}\n"
 		end
 		return(back)

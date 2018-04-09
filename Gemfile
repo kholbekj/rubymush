@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.8'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.3.13', '< 0.5'
+gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -39,8 +40,7 @@ gem 'bcrypt'
 gem 'colorize'
 gem 'therubyracer'
 gem 'concurrent-ruby'
-gem 'bcrypt'
-
+gem 'httparty'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
