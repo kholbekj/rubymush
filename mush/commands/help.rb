@@ -31,7 +31,7 @@ class Help < Command
 				end
 			end
 		end
-
+    "Could not find help for that.\n"
 	end
 
 	def name
