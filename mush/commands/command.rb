@@ -26,12 +26,16 @@ class Command
 	end
 
 	def prefixes
-    self.class.const_get(:PREFIXES)
+    self.class.const_defined?(:PREFIXES) ? self.class.const_get(:PREFIXES) : [self.class.const_get(:NAME)]
 	end
 
 	def shortcut
-    self.class.const_get(:SHORTCUT)
+    self.class.const_defined?(:SHORTCUT) ? self.class.const_get(:SHORTCUT) : nil
 	end
+
+  def name
+    self.class.const_get(:NAME)
+  end
 
 	def time_ago_in_words(t)
 		seconds = Time.now.to_i - t.to_i
