@@ -1,20 +1,11 @@
 require_relative 'command'
 class Floating < Command
+  NAME = "floating"
 
+  PREFIXES = ['floating']
+  SHORTCUT = nil
 
-	def initialize
-		@name = "floating"
-
-		@prefixes = ['floating']
-		@shortcut = nil
-
-		@help = "floating - Lists your floating objects."
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+  HELP = "floating - Lists your floating objects."
 
 	def process(thing, command)
 		things = Thing.where(["owner_id = ? and location_id is null", thing.id])
@@ -30,7 +21,7 @@ class Floating < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

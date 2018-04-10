@@ -1,21 +1,13 @@
 require_relative 'command'
 class Teleport < Command
+  NAME = "teleport"
 
-	def initialize
-		@name = "teleport"
+  PREFIXES = ['tel', 'tp', 'teleport']
+  SHORTCUT = nil
 
-		@prefixes = ['tel', 'tp', 'teleport']
-		@shortcut = nil
+  HELP = "teleport <ref> - Teleports yourself to <ref>\nteleport <ref1>=<ref2> - Teleports <ref1> to <ref2>\n"
 
-		@help = "teleport <ref> - Teleports yourself to <ref>\nteleport <ref1>=<ref2> - Teleports <ref1> to <ref2>\n"
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
-
-	def process(thing, command)
+  def process(thing, command)
 		if command.include?('=')
 			t = find_thing(thing, command.split('=')[0].split(' ')[1..-1].join(' '))
 			dest = find_thing(thing, command.split('=')[1].strip)
@@ -59,7 +51,7 @@ class Teleport < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

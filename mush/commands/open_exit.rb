@@ -1,19 +1,11 @@
 require_relative 'command'
 class OpenExit < Command
+  NAME = "open"
 
-	def initialize
-		@name = "open"
+  PREFIXES = ['open']
+  SHORTCUT = nil
 
-		@prefixes = ['open']
-		@shortcut = nil
-
-		@help = "open <name>=<ref> - Opens an exit named <name>, that leads to <ref>"
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+  HELP = "open <name>=<ref> - Opens an exit named <name>, that leads to <ref>"
 
 	def process(thing, command)
 		if @parts.size > 1
@@ -33,7 +25,7 @@ class OpenExit < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

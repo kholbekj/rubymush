@@ -1,19 +1,11 @@
 require_relative 'command'
 class Look < Command
+  NAME = "look"
 
-	def initialize
-		@name = "look"
+  PREFIXES = ['look', 'l']
+  SHORTCUT = nil
 
-		@prefixes = ['look', 'l']
-		@shortcut = nil
-
-		@help = "look <optional ref> - Shows an object's description and other details"
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+  HELP = "look <optional ref> - Shows an object's description and other details"
 
 	def process(thing, command)
 		if @parts.size == 1
@@ -62,7 +54,7 @@ class Look < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

@@ -1,12 +1,16 @@
 class Command
 
 	def initialize
-		@name = ""
 		@parameter_count = 0
 		@prefixes = []
 		@shortcut = nil
 		@help = ""
 		@broadcaster = nil
+	end
+
+  def execute(thing, command)
+		@parts = command.split(' ')
+		return(process(thing, command))
 	end
 
 	def should_respond?(c)
@@ -18,16 +22,20 @@ class Command
 	end
 
 	def help
-		return @help
+    self.class.const_get(:HELP)
 	end
 
 	def prefixes
-		return @prefixes
+    self.class.const_defined?(:PREFIXES) ? self.class.const_get(:PREFIXES) : [self.class.const_get(:NAME)]
 	end
 
 	def shortcut
-		return @shortcut
+    self.class.const_defined?(:SHORTCUT) ? self.class.const_get(:SHORTCUT) : nil
 	end
+
+  def name
+    self.class.const_get(:NAME)
+  end
 
 	def time_ago_in_words(t)
 		seconds = Time.now.to_i - t.to_i

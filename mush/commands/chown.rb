@@ -1,51 +1,23 @@
 require_relative 'command'
 class Chown < Command
+  NAME = "chown"
+  HELP = "chown <ref1>=<ref2> - Sets <ref2> as owner of <ref1>"
 
-	def initialize
-		@name = "chown"
+  def process(thing, command)
+    return "Usage: description <object name or ref>=<description>\n" unless @parts.size >= 2
 
-		@prefixes = ['chown']
-		@shortcut = nil
+    @parts.shift
+    @parts = @parts.join(' ').split('=')
 
-		@help = "chown <ref1>=<ref2> - Sets <ref2> as owner of <ref1>"
-	end
+    t = find_thing(thing, @parts[0])
+    dest = find_thing(thing, @parts[1])
 
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+    return "Object not found.\n" unless t
+    return "Permission denied.\n" unless t.user_can_edit?(thing)
+    return "New owner not found.\n" unless dest
 
-	def process(thing, command)
-		if @parts.size >= 2
-			@parts.shift
-			@parts = @parts.join(' ').split('=')
-			t = find_thing(thing, @parts[0])
-			dest = find_thing(thing, @parts[1])
-
-			if t
-				if t.user_can_edit?(thing)
-					if dest
-						t.owner = dest
-						t.save
-						# dest.receive_raw_message(thing, "#{thing.name}".colorize(:light_cyan) + " gave you #{t.name}.")
-						return("Ownership of #{t.name} changed to #{dest.name}.\n")
-					else
-						return("New owner not found.\n")
-					end
-				else
-					return("Permission denied.\n")
-				end
-			else
-				return("Object not found.\n")
-			end
-
-		else
-			return("Usage: description <object name or ref>=<description>\n")
-		end
-	end
-
-	def name
-		return @name
-	end
-
+    t.owner = dest
+    t.save
+    return("Ownership of #{t.name} changed to #{dest.name}.\n")
+  end
 end

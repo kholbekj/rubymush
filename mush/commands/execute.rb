@@ -1,19 +1,11 @@
 require_relative 'command'
 class Execute < Command
+  NAME = "execute"
 
-	def initialize
-		@name = "execute"
+  PREFIXES = ['execute', 'exe']
+  SHORTCUT = nil
 
-		@prefixes = ['execute', 'exe']
-		@shortcut = nil
-
-		@help = "execute <ref>:<name> - Executes code <name> on <ref>\nexecute <ref>:<name>=<params> - Executes code <name> on <ref> with <params>"
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+  HELP = "execute <ref>:<name> - Executes code <name> on <ref>\nexecute <ref>:<name>=<params> - Executes code <name> on <ref> with <params>"
 
 	def process(thing, command)
 		if @parts.size >= 2 && command.include?(':')
@@ -54,7 +46,7 @@ class Execute < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

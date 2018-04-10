@@ -1,19 +1,11 @@
 require_relative 'command'
 class FloatObject < Command
+  NAME = "float"
 
-	def initialize
-		@name = "float"
+  PREFIXES = ['float']
+  SHORTCUT = nil
 
-		@prefixes = ['float']
-		@shortcut = nil
-
-		@help = "float <ref> - Clears the location of <ref>. Use this to turn objects into rooms."
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+  HELP = "float <ref> - Clears the location of <ref>. Use this to turn objects into rooms."
 
 	def process(thing, command)
 		if @parts.size > 1
@@ -32,7 +24,7 @@ class FloatObject < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

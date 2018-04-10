@@ -1,19 +1,11 @@
 require_relative 'command'
 class Name < Command
+  NAME = "name"
 
-	def initialize
-		@name = "name"
+  PREFIXES = ['name']
+  SHORTCUT = nil
 
-		@prefixes = ['name']
-		@shortcut = nil
-
-		@help = "name <ref>=<description> - Sets the name of an object"
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+  HELP = "name <ref>=<description> - Sets the name of an object"
 
 	def process(thing, command)
 		if @parts.size >= 2
@@ -38,7 +30,7 @@ class Name < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end
