@@ -1,19 +1,11 @@
 require_relative 'command'
 class SetCode < Command
+  NAME = "code"
 
-	def initialize
-		@name = "code"
+  PREFIXES = ['code']
+  SHORTCUT = nil
 
-		@prefixes = ['code']
-		@shortcut = nil
-
-		@help = "code <ref>:<name>=<javascript code> - Sets code on an object"
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+  HELP = "code <ref>:<name>=<javascript code> - Sets code on an object"
 
 	def process(thing, command)
 		if @parts.size >= 2
@@ -42,7 +34,7 @@ class SetCode < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

@@ -1,21 +1,13 @@
 require_relative 'command'
 class Doing < Command
+  NAME = "doing"
 
-	def initialize
-		@name = "doing"
+  PREFIXES = ['doing', '@doing']
+  SHORTCUT = nil
 
-		@prefixes = ['doing', '@doing']
-		@shortcut = nil
+  HELP = "doing <message> - Sets your \"doing\" message, as seen in the \"who\" command."
 
-		@help = "doing <message> - Sets your \"doing\" message, as seen in the \"who\" command."
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
-
-	def process(thing, command)
+  def process(thing, command)
 		message = @parts[1..-1].join(' ')
 		thing.doing = message
 		thing.save
@@ -23,7 +15,7 @@ class Doing < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

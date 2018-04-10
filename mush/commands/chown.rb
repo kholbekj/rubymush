@@ -1,51 +1,43 @@
 require_relative 'command'
 class Chown < Command
+  NAME = "chown"
 
-	def initialize
-		@name = "chown"
+  PREFIXES = ['chown']
+  SHORTCUT = nil
 
-		@prefixes = ['chown']
-		@shortcut = nil
+  HELP = "chown <ref1>=<ref2> - Sets <ref2> as owner of <ref1>"
 
-		@help = "chown <ref1>=<ref2> - Sets <ref2> as owner of <ref1>"
-	end
+  def process(thing, command)
+    if @parts.size >= 2
+      @parts.shift
+      @parts = @parts.join(' ').split('=')
+      t = find_thing(thing, @parts[0])
+      dest = find_thing(thing, @parts[1])
 
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+      if t
+        if t.user_can_edit?(thing)
+          if dest
+            t.owner = dest
+            t.save
+            # dest.receive_raw_message(thing, "#{thing.name}".colorize(:light_cyan) + " gave you #{t.name}.")
+            return("Ownership of #{t.name} changed to #{dest.name}.\n")
+          else
+            return("New owner not found.\n")
+          end
+        else
+          return("Permission denied.\n")
+        end
+      else
+        return("Object not found.\n")
+      end
 
-	def process(thing, command)
-		if @parts.size >= 2
-			@parts.shift
-			@parts = @parts.join(' ').split('=')
-			t = find_thing(thing, @parts[0])
-			dest = find_thing(thing, @parts[1])
+    else
+      return("Usage: description <object name or ref>=<description>\n")
+    end
+  end
 
-			if t
-				if t.user_can_edit?(thing)
-					if dest
-						t.owner = dest
-						t.save
-						# dest.receive_raw_message(thing, "#{thing.name}".colorize(:light_cyan) + " gave you #{t.name}.")
-						return("Ownership of #{t.name} changed to #{dest.name}.\n")
-					else
-						return("New owner not found.\n")
-					end
-				else
-					return("Permission denied.\n")
-				end
-			else
-				return("Object not found.\n")
-			end
-
-		else
-			return("Usage: description <object name or ref>=<description>\n")
-		end
-	end
-
-	def name
-		return @name
-	end
+  def name
+    return NAME
+  end
 
 end

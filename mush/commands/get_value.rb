@@ -1,46 +1,38 @@
 require_relative 'command'
 class GetValue < Command
+  NAME = "read"
 
-	def initialize
-		@name = "read"
+  PREFIXES = ['read']
+  SHORTCUT = nil
 
-		@prefixes = ['read']
-		@shortcut = nil
+  HELP = "read <ref>:<name> - Get an attribute value on an object"
 
-		@help = "read <ref>:<name> - Get an attribute value on an object"
-	end
+  def process(thing, command)
+    if @parts.size >= 2
+      ref = command.split(' ')[1..-1].join(' ').split(':')[0]
+      name = command.split(' ')[1..-1].join(' ').split(':')[1].split('=')[0]
+      value = command.split(' ')[1..-1].join(' ').split(':')[1].split('=')[1..-1].join('=')
+      t = find_thing(thing, ref)
 
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+      if t
+        if t.user_can_edit?(thing)
+          t.get(name)
+          t.save
+          return("Value: #{t.name_ref}:#{name} = #{t.get(name)}.\n")
+        else
+          return("Permission denied.\n")
+        end
+      else
+        return("Object not found.\n")
+      end
 
-	def process(thing, command)
-		if @parts.size >= 2
-			ref = command.split(' ')[1..-1].join(' ').split(':')[0]
-			name = command.split(' ')[1..-1].join(' ').split(':')[1].split('=')[0]
-			value = command.split(' ')[1..-1].join(' ').split(':')[1].split('=')[1..-1].join('=')
-			t = find_thing(thing, ref)
+    else
+      return("Usage: #{@help}\n")
+    end
+  end
 
-			if t
-				if t.user_can_edit?(thing)
-					t.get(name)
-					t.save
-					return("Value: #{t.name_ref}:#{name} = #{t.get(name)}.\n")
-				else
-					return("Permission denied.\n")
-				end
-			else
-				return("Object not found.\n")
-			end
-
-		else
-			return("Usage: #{@help}\n")
-		end
-	end
-
-	def name
-		return @name
-	end
+  def name
+    return NAME
+  end
 
 end

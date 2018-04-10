@@ -1,19 +1,11 @@
 require_relative 'command'
 class Give < Command
+  NAME = "give"
 
-	def initialize
-		@name = "give"
+  PREFIXES = ['give']
+  SHORTCUT = nil
 
-		@prefixes = ['give']
-		@shortcut = nil
-
-		@help = "give <ref1>=<ref2> - Moves <ref1> from your inventory to <ref2>'s inventory'"
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+  HELP = "give <ref1>=<ref2> - Moves <ref1> from your inventory to <ref2>'s inventory'"
 
 	def process(thing, command)
 		if @parts.size >= 2
@@ -45,7 +37,7 @@ class Give < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

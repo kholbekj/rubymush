@@ -1,21 +1,12 @@
 require_relative 'command'
 class Emote < Command
+  NAME = "Emote"
+  PARAMETER_COUNT = 1
 
-	def initialize
-		@name = "Emote"
-		@parameter_count = 1
+  PREFIXES = [':', 'emote']
+  SHORTCUT = ':'
 
-		@prefixes = [':', 'emote']
-		@shortcut = ':'
-
-		@help = ":<message> - Emotes in your current location"
-	end
-
-	def execute(thing, command)
-		# check_parts(command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+  HELP = ":<message> - Emotes in your current location"
 
 	def process(thing, command)
 		message = @parts[1..-1].join(' ')
@@ -25,7 +16,6 @@ class Emote < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
-
 end

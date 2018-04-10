@@ -1,20 +1,11 @@
 require_relative 'command'
 class Inventory < Command
+  NAME = "inventory"
 
+  PREFIXES = ['i', 'inv', 'inventory']
+  SHORTCUT = nil
 
-	def initialize
-		@name = "inventory"
-
-		@prefixes = ['i', 'inv', 'inventory']
-		@shortcut = nil
-
-		@help = "inventory - Shows your inventory."
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+  HELP = "inventory - Shows your inventory."
 
 	def process(thing, command)
 		things = Thing.where(location: thing.id).order('name asc')
@@ -29,7 +20,7 @@ class Inventory < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

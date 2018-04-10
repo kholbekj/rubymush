@@ -1,23 +1,14 @@
 require_relative 'command'
 class Help < Command
+  NAME = "help"
+  PARAMETER_COUNT = 0
 
+  PREFIXES = ['help']
+  SHORTCUT = '?'
 
-	def initialize
-		@name = "help"
-		@parameter_count = 0
+  HELP = "help - Shows help index"
 
-		@prefixes = ['help']
-		@shortcut = '?'
-
-		@help = "help - Shows help index"
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
-
-	def process(thing, command)
+  def process(thing, command)
 		if @parts.size == 1
 			commands = ""
 			for c in COMMANDS
@@ -35,7 +26,7 @@ class Help < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

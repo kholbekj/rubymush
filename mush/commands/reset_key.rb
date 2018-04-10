@@ -1,19 +1,11 @@
 require_relative 'command'
 class ResetKey < Command
+		NAME = "resetkey"
 
-	def initialize
-		@name = "resetkey"
+		PREFIXES = ['resetkey']
+		SHORTCUT = nil
 
-		@prefixes = ['resetkey']
-		@shortcut = nil
-
-		@help = "resetkey <ref> - Generates a new external key for <ref>"
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+		HELP = "resetkey <ref> - Generates a new external key for <ref>"
 
 	def process(thing, command)
 		if @parts.size > 1
@@ -35,7 +27,7 @@ class ResetKey < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

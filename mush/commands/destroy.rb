@@ -1,19 +1,11 @@
 require_relative 'command'
 class Destroy < Command
+  NAME = "destroy"
 
-	def initialize
-		@name = "destroy"
+  PREFIXES = ['destroy', 'dest']
+  SHORTCUT = nil
 
-		@prefixes = ['destroy', 'dest']
-		@shortcut = nil
-
-		@help = "destroy <ref> - Destroys an object"
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+  HELP = "destroy <ref> - Destroys an object"
 
 	def process(thing, command)
 		if @parts.size == 2
@@ -34,7 +26,7 @@ class Destroy < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

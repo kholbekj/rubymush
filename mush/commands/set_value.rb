@@ -1,21 +1,13 @@
 require_relative 'command'
 class SetValue < Command
+  NAME = "set"
 
-	def initialize
-		@name = "set"
+  PREFIXES = ['set']
+  SHORTCUT = nil
 
-		@prefixes = ['set']
-		@shortcut = nil
+  HELP = "set <ref>:<name>=<value> - Sets an attribute value on an object"
 
-		@help = "set <ref>:<name>=<value> - Sets an attribute value on an object"
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
-
-	def process(thing, command)
+  def process(thing, command)
 		if @parts.size >= 2
 			ref = command.split(' ')[1..-1].join(' ').split(':')[0]
 			name = command.split(' ')[1..-1].join(' ').split(':')[1].split('=')[0].strip
@@ -23,7 +15,7 @@ class SetValue < Command
 			t = find_thing(thing, ref)
 
 			if t
-				if t.user_can_edit?(thing)					
+				if t.user_can_edit?(thing)
 					t.set(name, value)
 					t.save
 					return("Value set: #{t.name_ref}:#{name} = #{value}.\n")
@@ -40,7 +32,7 @@ class SetValue < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

@@ -1,21 +1,13 @@
 require_relative 'command'
 class Drop < Command
+  NAME = "drop"
 
-	def initialize
-		@name = "drop"
+  PREFIXES = ['drop']
+  SHORTCUT = nil
 
-		@prefixes = ['drop']
-		@shortcut = nil
+  HELP = "drop <ref> - Drops an object from your inventory into your current location"
 
-		@help = "drop <ref> - Drops an object from your inventory into your current location"
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
-
-	def process(thing, command)
+  def process(thing, command)
 		if @parts.size > 1
 			t = find_thing(thing, @parts[1..-1].join(' '))
 			if t and t.location == thing
@@ -33,7 +25,7 @@ class Drop < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end

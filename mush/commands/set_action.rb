@@ -1,19 +1,11 @@
 require_relative 'command'
 class SetAction < Command
+  NAME = "action"
 
-	def initialize
-		@name = "action"
+  PREFIXES = ['action']
+  SHORTCUT = nil
 
-		@prefixes = ['action']
-		@shortcut = nil
-
-		@help = "action <ref>:<name>=<code> - Creates an action command that triggers code on an object. Action names cannot contain spaces."
-	end
-
-	def execute(thing, command)
-		@parts = command.split(' ')
-		return(process(thing, command))
-	end
+  HELP = "action <ref>:<name>=<code> - Creates an action command that triggers code on an object. Action names cannot contain spaces."
 
 	def process(thing, command)
 		if @parts.size >= 2
@@ -40,7 +32,7 @@ class SetAction < Command
 	end
 
 	def name
-		return @name
+		return NAME
 	end
 
 end
